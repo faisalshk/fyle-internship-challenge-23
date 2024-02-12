@@ -1,0 +1,21 @@
+<form
+  #userSearch="ngForm"
+  class="flex gap-4"
+  (ngSubmit)="search()"
+  ngNativeValidate
+>
+  <input
+    placeholder="Search github account..."
+    class="w-full border-2 rounded-xl p-2 text-xl"
+    type="text"
+    name="user"
+    [(ngModel)]="username"
+    required
+  />
+  <button
+    class="bg-[cadetblue] p-2 text-[#fff] rounded-xl px-8 text-xl"
+    type="submit"
+  >
+    Search
+  </button>
+</form>

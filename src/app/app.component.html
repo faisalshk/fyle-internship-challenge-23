@@ -1,5 +1,15 @@
-<div class="grid h-screen place-items-center">
-  <div class="font-bold text-3xl">
-    Fyle Internship Challenge
-  </div>
+<div class="flex justify-center items-center py-[5vw] flex-col gap-6">
+  <app-search (searchEvent)="setUsername($event)"></app-search>
+  <app-profile
+    class="w-[30%]"
+    (totalPagesChanged)="updateTotalPages($event)"
+    [loader]="loader"
+    [username]="username"
+  ></app-profile>
+  <app-repository
+    [totalPages]="totalPages"
+    [username]="username"
+    [pageNumber]="pageNumber"
+    class="w-[70%]"
+  ></app-repository>
 </div>

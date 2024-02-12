@@ -1,0 +1,45 @@
+.card {
+  padding: 1rem;
+  width: 48%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+  gap: 20px;
+
+  h2 {
+    font-weight: bold;
+    color: cadetblue;
+    font-size: 2rem;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  div {
+    display: flex;
+    column-gap: 4%;
+    row-gap: 18px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+
+    span {
+      background-color: cadetblue;
+      padding: 6px;
+      color: #fff;
+      border-radius: 10px;
+    }
+  }
+}
+
+.next {
+  background-image: url("../../assets/right-arrow.png");
+  min-width: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

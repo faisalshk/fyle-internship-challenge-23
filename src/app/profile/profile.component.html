@@ -1,0 +1,84 @@
+<div *ngIf="error.length !== 0; else displayData">
+  User Not Found1 | Error Message: {{ error }}
+</div>
+
+<ng-template #displayData>
+  <div
+    class="flex w-[100%] justify-between border-2 rounded-xl p-4 border-[cadetblue] gap-4"
+    *ngIf="data || loader"
+  >
+    <div class="w-full min-h-[10vw]" *ngIf="loader; else content1">
+      <div class="animate-pulse flex space-x-4">
+        <div class="rounded-full bg-slate-200 h-[10vw] w-[10vw]"></div>
+        <div class="flex-1 space-y-6 py-1">
+          <div class="h-8 bg-slate-200 rounded"></div>
+          <div class="space-y-3">
+            <div class="grid grid-cols-3 gap-4">
+              <div class="h-8 bg-slate-200 rounded col-span-3"></div>
+            </div>
+            <div class="h-8 bg-slate-200 rounded"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #content1>
+      <img
+        class="rounded-full overflow-hidden w-[10vw] h-[10vw]"
+        *ngIf="data"
+        class="rounded-full w-[10vw] h-[10vw]"
+        [src]="data.avatar_url"
+        alt="profile"
+      />
+      <div class="flex flex-col">
+        <h1 *ngIf="data" class="font-bold text-xl">{{ data.name }}</h1>
+        <p *ngIf="data" class="font-semibold" class="text-l">
+          {{ data.bio || "Not Available" }}
+        </p>
+        <h4 *ngIf="data" class="font-semibold text-xl">
+          {{ data.location || "Not Available" }}
+        </h4>
+        <a
+          *ngIf="data"
+          class="font-semibold text-l"
+          href="{{ data.html_url }}"
+          target="_blank"
+          >github: {{ data.html_url || "Not Available" }}</a
+        >
+      </div>
+    </ng-template>
+  </div>
+</ng-template>
+
+<!-- <div class="w-[70%] flex flex-wrap gap-4">
+    <div class="card" *ngFor="let item of repos">
+      <h2>{{ item.name }}</h2>
+      <p>{{ item.description || "No Description" }}</p>
+      <div>
+        <span class="gap-y-4" *ngFor="let topic of item.topics">{{ topic }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-between w-[20%]" *ngIf="totalPages > 1">
+    <button
+      (click)="prevPage()"
+      class="cursor-pointer text-3xl"
+      [disabled]="pageNumber === 1"
+    >
+      <<
+    </button>
+    <div
+      class="mx-4 text-xl cursor-pointer p-2"
+      *ngFor="let i of iterate(totalPages)"
+      [ngClass]="{ 'bg-[orange]': i + 1 === pageNumber }"
+      (click)="pageClick($event)"
+    >
+      {{ i + 1 }}
+    </div>
+    <button
+      (click)="nextPage()"
+      [disabled]="pageNumber === totalPages"
+      class="cursor-pointer text-3xl"
+    >
+      >>
+    </button>
+  </div> -->
