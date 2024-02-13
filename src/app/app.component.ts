@@ -9,7 +9,7 @@ import { ApiService } from './services/api.service';
 export class AppComponent implements OnInit {
   username: string = '';
   loader: boolean = false;
-  totalPages: number = 1;
+  totalRepos: number = 1;
   pageNumber: number = 1;
   // constructor(private apiService: ApiService) {}
 
@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
     this.pageNumber = 1;
   }
 
-  updateTotalPages(totalPages: number): void {
-    this.totalPages = totalPages;
+  updateTotalPages(totalRepos: number): void {
+    this.totalRepos = totalRepos;
   }
 
   ngOnInit() {

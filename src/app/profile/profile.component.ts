@@ -9,31 +9,63 @@ import { ApiService } from '../services/api.service';
 export class ProfileComponent {
   @Input() username: string = '';
   data: any;
-  totalPages = 1;
+  cachedData: any[] = [];
+  totalRepos = 1;
   error: string = '';
   @Input() loader: boolean = false;
-  @Output() totalPagesChanged = new EventEmitter<number>();
+  @Output() totalRepository = new EventEmitter<number>();
+
   constructor(private apiService: ApiService) {}
+
+  //helper functions
+  callUserData(username: string) {
+    this.apiService.getUser(username).subscribe(
+      (response: any) => {
+        this.cachedData.push(response);
+        localStorage.setItem('profileData', JSON.stringify(this.cachedData));
+        this.data = response;
+        this.totalRepos = response.public_repos;
+        // Emit the total pages.....
+        this.totalRepository.emit(this.totalRepos);
+        this.loader = false;
+      },
+      (error) => {
+        this.loader = false;
+        this.error = error.error.message;
+        console.error('Error fetching profile data:', error.error.message);
+      }
+    );
+  }
+
   // user click event data
   ngOnChanges() {
     if (this.username) {
       this.loader = true;
       this.error = '';
-      this.apiService.getUser(this.username).subscribe(
-        (response: any) => {
-          this.data = response;
-          this.totalPages = Math.ceil(response.public_repos / 10);
-          if (this.totalPages > 10) this.totalPages = 10;
+
+      //checking if the user data is in the localstorage or not (doing caching with the help of local storage)
+      const cachedUserData = localStorage.getItem('profileData');
+
+      if (cachedUserData) {
+        this.cachedData = JSON.parse(cachedUserData);
+        const userExists = this.cachedData.find(
+          (data) => data.login === this.username
+        );
+
+        if (userExists) {
+          console.log(userExists);
+          this.data = userExists;
+          this.totalRepos = this.data.public_repos;
           // Emit the total pages.....
-          this.totalPagesChanged.emit(this.totalPages);
+          this.totalRepository.emit(this.totalRepos);
           this.loader = false;
-        },
-        (error) => {
-          this.loader = false;
-          this.error = error.error.message;
-          console.error('Error fetching profile data:', error.error.message);
+          return;
+        } else {
+          this.callUserData(this.username);
         }
-      );
+      } else {
+        this.callUserData(this.username);
+      }
     }
   }
 }

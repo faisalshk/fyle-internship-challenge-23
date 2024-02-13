@@ -10,14 +10,16 @@ export class RepositoryComponent {
   @Input() username: string = '';
   @Input() loader: boolean = false;
   @Input() pageNumber: number = 1;
-  @Input() totalPages: number = 0;
+  @Input() totalRepos: number = 0;
   repos: any[] = [];
   error: boolean = false;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
+  selectedPageSize: number = 10;
+  totalPages: number = 1;
 
   constructor(private apiService: ApiService) {}
 
   ngOnChanges() {
-    console.log(this.username);
     if (this.username) {
       this.loader = true;
       this.error = false;
@@ -25,6 +27,8 @@ export class RepositoryComponent {
         (response: any) => {
           this.repos = response;
           this.loader = false;
+          this.totalPages = Math.ceil(this.totalRepos / this.selectedPageSize);
+          if (this.totalPages > 10) this.totalPages = 10;
           console.log(this.repos);
           console.log(this.totalPages);
         },
@@ -42,7 +46,7 @@ export class RepositoryComponent {
     this.pageNumber--;
     this.loader = true;
     this.apiService
-      .getUserRepos(this.username, this.pageNumber)
+      .getUserRepos(this.username, this.pageNumber, this.selectedPageSize)
       .subscribe((response: any) => {
         this.repos = response;
         this.loader = false;
@@ -53,7 +57,7 @@ export class RepositoryComponent {
     this.pageNumber++;
     this.loader = true;
     this.apiService
-      .getUserRepos(this.username, this.pageNumber)
+      .getUserRepos(this.username, this.pageNumber, this.selectedPageSize)
       .subscribe((response: any) => {
         this.repos = response;
         this.loader = false;
@@ -73,9 +77,21 @@ export class RepositoryComponent {
     this.loader = true;
     console.log(typeof this.pageNumber);
     this.apiService
-      .getUserRepos(this.username, this.pageNumber)
+      .getUserRepos(this.username, this.pageNumber, this.selectedPageSize)
       .subscribe((response: any) => {
         this.repos = response;
+        this.loader = false;
+      });
+  }
+
+  onPageSizeChange(): void {
+    this.pageNumber = 1; // Reset to first page when page size changes
+    this.loader = true;
+    this.apiService
+      .getUserRepos(this.username, this.pageNumber, this.selectedPageSize)
+      .subscribe((response: any) => {
+        this.repos = response;
+        this.totalPages = Math.ceil(this.totalRepos / this.selectedPageSize);
         this.loader = false;
       });
   }

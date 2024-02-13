@@ -60,5 +60,11 @@
       [disabled]="pageNumber === totalPages"
       class="cursor-pointer text-3xl mx-4 next"
     ></button>
+
+    <div class="my-8">
+      <select [(ngModel)]="selectedPageSize" (change)="onPageSizeChange()">
+        <option *ngFor="let option of pageSizeOptions">{{ option }}</option>
+      </select>
+    </div>
   </div>
 </ng-template>
