@@ -89,6 +89,7 @@ describe('ApiService', () => {
   it('should make GET request for getUserRepos', () => {
     const username = 'testuser';
     const pageNumber = 1;
+    const pageSize = 10;
     const dummyRepos = [
       {
         /* your dummy repo data */
@@ -99,12 +100,12 @@ describe('ApiService', () => {
       },
     ];
 
-    service.getUserRepos(username, pageNumber).subscribe((repos) => {
+    service.getUserRepos(username, pageNumber, pageSize).subscribe((repos) => {
       expect(repos).toEqual(dummyRepos);
     });
 
     const req = httpTestingController.expectOne(
-      `https://api.github.com/users/${username}/repos?page=${pageNumber}&per_page=10`
+      `https://api.github.com/users/${username}/repos?page=${pageNumber}&per_page=${pageSize}`
     );
     expect(req.request.method).toEqual('GET');
     req.flush(dummyRepos);

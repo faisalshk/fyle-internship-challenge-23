@@ -23,8 +23,8 @@ To Run unit testing for the component and service and also to see the code cover
 
 ### component testing
 
-ng test --include='src/app/search/search.component.specs.ts' --code-coverage
+ng test --include='src/app/search/search.component.spec.ts' --code-coverage
 
 ### api service testing
 
-ng test --include='src/app/services/api.service.specs.ts' --code-coverage
+ng test --include='src/app/services/api.service.spec.ts' --code-coverage
