@@ -35,14 +35,14 @@
           {{ data.bio || "Not Available" }}
         </p>
         <h4 *ngIf="data" class="font-semibold text-xl">
-          {{ data.location || "Not Available" }}
+          <span>📍</span> {{ data.location || "Not Available" }}
         </h4>
         <a
           *ngIf="data"
           class="font-semibold text-l"
           href="{{ data.html_url }}"
           target="_blank"
-          >github: {{ data.html_url || "Not Available" }}</a
+          ><span>GitHub: </span>{{ data.html_url || "Not Available" }}</a
         >
       </div>
     </ng-template>
