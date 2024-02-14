@@ -7,6 +7,9 @@ import { ApiService } from './services/api.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   username: string = '';
   loader: boolean = false;
   totalRepos: number = 1;

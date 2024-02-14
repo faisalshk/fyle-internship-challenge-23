@@ -1,43 +1,30 @@
 # Fyle Frontend Challenge
 
-## Who is this for?
+Sucessfully!!, Designed an Angular 14+ single-page application (SPA) that takes a GitHub username as input and displays the public Github repositories belonging to the user.
 
-This challenge is meant for candidates who wish to intern at Fyle and work with our engineering team. The candidate should be able to commit to at least 6 months of dedicated time for internship.
+Sucessfully!!, Implemented Skeleton loader
 
-## Why work at Fyle?
+Sucessfully!!, Implemented Server-side Pagination
 
-Fyle is a fast-growing Expense Management SaaS product. We are ~40 strong engineering team at the moment. 
+there are three components beside parent component(app.component), the search component, profile component and repository component.
 
-We are an extremely transparent organization. Check out our [careers page](https://careers.fylehq.com) that will give you a glimpse of what it is like to work at Fyle. Also, check out our Glassdoor reviews [here](https://www.glassdoor.co.in/Reviews/Fyle-Reviews-E1723235.htm). You can read stories from our teammates [here](https://stories.fylehq.com).
+the search component handles the input field when ever the user clicks the search button the Api call will be made in the profile component and the respository component And when the Api call is being made the skeleton lodaer is displayed, and when the data is received the loader will be removed
 
-## Challenge outline
+# Pagination
 
-This challenge involves implementing application using github api. 
+the pagination is handled in the the repository component, the pagination is server side and only displays 10 repository per page, when ever the user clicks on the next or previous or any of the pagination number the api call will be made and only 10 repository will be called.
 
-The services that you need to use are already implemented - check out ApiService.
+Note: the API call will be made every time the user clicks the pagination buttons, also the skelton loader will appear while the api call is being made.
 
-You can see details of this challenge [here](https://fyleuniverse.notion.site/fyleuniverse/Fyle-Frontend-development-challenge-cb5085e5e0864e769e7b98c694400aaa)
+# Unit Testing:
 
-__Note__ - This challenge is in angular. We work on angular frameworks & after you join we expect the same from you. Hence it is required to complete this assignement in angular itself.
+The unit testing is done only for the Search Component and the API service.
+To Run unit testing for the component and service and also to see the code coverage report provided by angular use this command
 
-## What happens next?
+### component testing
 
-You will hear back within 48 hours from us via email.
+ng test --include='src/app/search/search.component.specs.ts' --code-coverage
 
-## Installation
+### api service testing
 
-1. Fork this repository to your github account.
-2. Clone the forked repository and proceed with steps mentioned below.
-
-### Install requirements
-* Install angular cli [Ref](https://angular.io/cli)
-* `npm install` in this repository 
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Further help
-
-Visit the [Angular Documentation](https://angular.io/guide/styleguide) to learn more.
-Styling is to be strictly done with [Tailwind](https://tailwindcss.com/docs/installation).
+ng test --include='src/app/services/api.service.specs.ts' --code-coverage
