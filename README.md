@@ -16,6 +16,13 @@ the pagination is handled in the the repository component, the pagination is ser
 
 Note: the API call will be made every time the user clicks the pagination buttons, also the skelton loader will appear while the api call is being made.
 
+# Caching
+Caching for the whole application is done with the help of localstorage.
+
+In the Profile component when the user first searches for github the user, the application will first check in the localstorage if the profile data of the github user is available, if it is available it will then render that data in the template and if it is not available in the localstorage then the application will make the API request for the user and then pushes the user data in the profileData array which is stored in the localstorage. The user data in the localstorage is stored with the key "profileData".
+
+In the Repository component there is a "cacheKey" which has username, pagenumber and pageSize eg - "johnpapa_1_10", this key is used to store the data in the localstorage. When the user searches for the github user the repository component will first check if the data of the cacheKey i.e "johnpapa_1_10" is available in the localstorage or not, if the data related to that key is available then that data will be used in the HTML template and if the data of that key is not available then the repository component will make the API request and then stores the data of that key in the localstorage. This will help us to prevent making repetative API request.
+
 # Unit Testing:
 
 The unit testing is done only for the Search Component and the API service.
